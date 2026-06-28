@@ -10,6 +10,9 @@ def iniciar_figura_nova(event):
 
     elif tipo_figura_var.get() == 'Circulo':
         figura_nova = ('circulo', (event.x, event.y, 0))
+    
+    elif tipo_figura_var.get() == 'Retangulo':
+        figura_nova = ("retangulo", (event.x, event.y, event.x, event.y))
 
     elif tipo_figura_var.get() == 'Oval':
         figura_nova = ('oval', (event.x, event.y, 0, 0))
@@ -36,6 +39,10 @@ def atualizar_figura_nova(event):
         raioY = abs(figura_nova[1][1] - event.y)
         figura_nova = ('oval', (figura_nova[1][0], figura_nova[1][1], raioX, raioY))
 
+    elif figura_nova[0] == 'retangulo':
+        #a mesma coisa de atualizar linha porque o create_rectangle so precisa de dois pontos, assim como o create_line
+        figura_nova = ('retangulo', (figura_nova[1][0], figura_nova[1][1], event.x, event.y))
+
     else : # figura_nova[0] == "linha"
         figura_nova = ("linha", (figura_nova[1][0], figura_nova[1][1], event.x, event.y))
 
@@ -54,6 +61,9 @@ def desenhar_figuras():
     for fig, values in figuras:
         if fig == "linha":
             canvas.create_line(values[0], values[1], values[2], values[3])
+        # recebe os pontos x e y do inicio e x e y do fim e cria o retangulo com base nesses pontos
+        elif fig == "retangulo":
+            canvas.create_rectangle(values[0], values[1], values[2], values[3])
 
         # recebe os pontos centrais (cx, cy) e o raio e cria o circulo com base neles
         elif fig == 'circulo':
@@ -73,6 +83,9 @@ def desenhar_figura_nova():
     fig, values = figura_nova
     if fig == "linha":
         canvas.create_line(values[0], values[1], values[2], values[3], dash=(4, 2))
+
+    elif fig == 'retangulo':
+        canvas.create_rectangle(values[0], values[1], values[2], values[3], dash=(4,2))
     
     # Utiliza de um raio e dois pontos centrais para o circulo
     elif fig == 'circulo':
@@ -91,8 +104,9 @@ def desenhar_figura_nova():
 def incompleta(figura):
     fig, values = figura
     if fig == "linha":
-        return (values[0], values[1]) == (values[1], values[0])
-    
+        return (values[0], values[1]) == (values[2], values[3])
+    elif fig == "retangulo":
+        return (values[0], values[1]) == (values[2], values[3])
     elif fig == 'circulo':
         return values[2] == 0
     
@@ -125,7 +139,7 @@ label.grid(column=0, row=0, sticky=W, **paddings)
 # option menu
 tipo_figura_var = StringVar(root) # Guarda o tipo de figura selecionado no option menu (linha ou rabisco)
 option_menu = ttk.OptionMenu(frame, tipo_figura_var,
-                             'Linha', 'Linha', 'Rabisco', 'Circulo', 'Oval')
+                             'Linha', 'Linha', 'Rabisco', 'Circulo', 'Oval', 'Retangulo')
 option_menu.grid(column=1, row=0, sticky=W, **paddings)
 
 # Área de desenho
@@ -140,5 +154,4 @@ canvas.bind('<B1-Motion>', atualizar_figura_nova)
 canvas.bind('<ButtonRelease-1>', incluir_figura_nova)
 
 root.mainloop()
-
 
