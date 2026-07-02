@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import ttk
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
 
 #####################################################################################################################################################
 
@@ -27,163 +29,122 @@ class Quadro:
 #####################################################################################################################################################
 
 #classe super
+@dataclass
 class Figura:
     """
-Cada Figura recebe:
-Tipo, Valores, Cor_Bord e Cor_Preench
-
-Terá todos os metódos de desenhar uma figura
+    Cada Figura recebe:  Tipo, Valores, Cor_Bord e Cor_Preench
+    Terá todos os metódos de desenhar uma figura
     """
-    def __init__(self, tipo, values, cor_bord, cor_preench):
-        self.tipo = tipo
-        self.values = values
-        self.cor_bord = cor_bord
-        self.cor_preench = cor_preench
+    tipo: str
+    values: list
+    cor_bord: str
+    cor_preench: str
 
-    # Juntei as duas funçoes desenhar() em 1, recebendo o dash ou nao. <-- vai ser na Classe Quadro
-    def desenhar(self, canvas, tracejado=False):
-        pass
 
-    def atualizar(self, x, y):
-        pass
+    def desenhar(self, canvas, tracejado=False): # Juntei as duas funçoes desenhar() em 1, puxando o canvas(chamar os create_) e recebendo o dash ou nao. <-- vai ser na Classe Quadro
+        raise NotImplementedError("Subclasse deve implementar o método desenhar") # Impede de utilizar o metodo diretamente (Será usado atravez do Quadro)
 
-    def incompleta(self):
-        pass
+
+    def atualizar(self, x, y): # Metodo para atualizar a figura conforme o mouse se move
+        raise NotImplementedError("Subclasse deve implementar o método atualizar")
+
+
+    def incompleta(self): # Metodo para o caso de uma figura incompleta ser feita
+        raise NotImplementedError("Subclasse deve implementar o método incompleta")
+
 
 #####################################################################################################################################################
 
 class FiguraLinha(Figura):
 
-    def __init__(self, tipo, values, cor_bord, cor_preench, figura_nova):
-        super().__init__(tipo, values, cor_bord, cor_preench, figura_nova)
-        #self.figura_nova = figura_nova
+
+    def desenhar(self, canvas, tracejado=False): 
+        x1, y1, x2, y2 = self.values
+        canvas.create_line(x1, y1, x2, y2, fill=self.cor_preench)
 
 
-    def desenhar_figuras(self):
-        canvas.delete("all")
-        for fig, values in figuras:
-            if fig == "linha":
-                canvas.create_line(values[0], values[1], values[2], values[3], fill=cor_preench)
+    def atualizar(self, x, y):
+        x1, y1, x2, y2 = self.values
+        self.values = (x1, y1, x, y)
 
-    def desenhar_figura_nova(self): 
-        fig, values = figura_nova
-        if fig == "linha":
-            canvas.create_line(values[0], values[1], values[2], values[3], dash=(4, 2), fill=cor_preench)
 
-    def incompleta(self, figura):
-        fig, values = figura
-        if fig == "linha":
-            return (values[0], values[1]) == (values[1], values[0])
+    def incompleta(self):
+        return self.values[0:2] == self.values[2:4]
 
 
 #####################################################################################################################################################
 
 class FiguraRabisco(Figura):
 
-    def __init__(self, tipo, values, cor_bord, cor_preench, figura_nova):
-        super().__init__(tipo, values, cor_bord, cor_preench, figura_nova)
+
+    def desenhar(self, canvas, tracejado=False):
+        canvas.create_line(self.values, fill=self.cor_preench)
 
 
-    def desenhar_figuras(self):
-        canvas.delete("all")
-        for fig, values in figuras:
-            if fig == "rabisco":
-                canvas.create_line(values, fill=cor_preench)
+    def atualizar(self, x, y):
+        self.values.append((x, y))
 
-    def desenhar_figura_nova(self): 
-        fig, values = figura_nova
-        if fig == "rabisco":
-            canvas.create_line(values, dash=(4, 2), fill=cor_preench)
 
-    def incompleta(self, figura):
-        fig, values = figura
-        if fig == "rabisco":
-            return len(values) <= 1
+    def incompleta(self):
+        return len(self.values) <= 1
         
 #####################################################################################################################################################
 
 class FiguraRetangulo(Figura):
 
-    def __init__(self, tipo, values, cor_bord, cor_preench, figura_nova):
-        super().__init__(tipo, values, cor_bord, cor_preench, figura_nova)
+
+    def desenhar(self, canvas, tracejado=False):
+        x1, y1, x2, y2 = self.values
+        canvas.create_rectangle(x1, y1, x2, y2, fill=self.cor_preench, outline=self.cor_bord)
 
 
+    def atualizar(self, x, y):
+        x1, y1, x2, y2 = self.values
+        #a mesma coisa de atualizar linha porque o create_rectangle so precisa de dois pontos, assim como o create_line
+        self.values = (x1, y1, x, y)
 
-    def desenhar_figuras(self):
-        canvas.delete("all")
-        for fig, values in figuras:
-            if fig == "retangulo":
-                canvas.create_rectangle(values[0], values[1], values[2], values[3], fill=cor_preench)
 
-    def desenhar_figura_nova(self): 
-        fig, values = figura_nova
-        if fig == 'retangulo':
-            canvas.create_rectangle(values[0], values[1], values[2], values[3], dash=(4,2), fill=cor_preench)
-
-    def incompleta(self, figura):
-        fig, values = figura
-        if fig == "retangulo":
-            return (values[0], values[1]) == (values[2], values[3])
+    def incompleta(self):
+        x1, y1, x2, y2 = self.values
+        return (x1, y1) == (x2, y2)
 
 
 #####################################################################################################################################################
 
 class FiguraCirculo(Figura):
 
-    def __init__(self, raio, tipo, values, cor_bord, cor_preench, figura_nova):
-        super().__init__(tipo, values, cor_bord, cor_preench, figura_nova)
-        self.raio = raio
+
+    def desenhar(self, canvas, tracejado=False):
+        cx, cy, raio = self.values # recebe os pontos centrais (cx, cy) e o raio e cria o circulo com base neles
+        canvas.create_oval(cx-raio, cy-raio, cx+raio, cy+raio, fill=self.cor_preench, outline=self.cor_bord)
 
 
+    def atualizar(self, x, y):
+        self.raio = ( (self.values[0] - x)**2 + (self.values[1] - y)**2 ) ** 0.5  # Calcula o raio para o circulo
+        self.values = (self.values[0], self.values[1], self.raio)  # figura_nova Recebe o nome, os dois primeiros pontos e o raio calculado)
 
-    def desenhar_figuras(self):
-        canvas.delete("all")
-        for fig, values in figuras:
-            # recebe os pontos centrais (cx, cy) e o raio e cria o circulo com base neles
-            if fig == 'circulo':
-                cx, cy, self.raio = self.values
-                canvas.create_oval(cx-self.raio, cy-self.raio, cx+self.raio, cy+self.raio, fill=self.cor_preench)
 
-    def desenhar_figura_nova(self): 
-        fig, values = figura_nova
-        # Utiliza de dois raios e dois pontos centrais para a criação da oval
-        if fig == 'oval':
-            cx, cy, raioX, raioY = values
-            canvas.create_oval(cx-raioX, cy-raioY, cx+raioX, cy+raioY, dash=(4,2), fill=cor_preench)
-
-    def incompleta(self, figura):
-        fig, values = figura
-        if fig == 'circulo':
-            return values[2] == 0
+    def incompleta(self):
+        return self.values[2] == 0
 
 #####################################################################################################################################################
 
 class FiguraOval(Figura):
 
-    def __init__(self, tipo, values, cor_bord, cor_preench, figura_nova):
-        super().__init__(tipo, values, cor_bord, cor_preench, figura_nova)
 
-
-
-    def desenhar_figuras(self):
-        canvas.delete("all")
-        for fig, values in figuras:
+    def desenhar(self, canvas, tracejado=False):
             # recebe os pontos centrais (cx, cy) e dois raios, para criar a oval
-            if fig == 'oval':
-                cx, cy, raioX, raioY = values
-                canvas.create_oval(cx-raioX, cy-raioY, cx+raioX, cy+raioY, fill=cor_preench)   
+                cx, cy, raioX, raioY = self.values
+                canvas.create_oval(cx-raioX, cy-raioY, cx+raioX, cy+raioY, fill=self.cor_preench, outline=self.cor_bord)   
 
-    def desenhar_figura_nova(self): 
-        fig, values = figura_nova
-        # Utiliza de um raio e dois pontos centrais para o circulo
-        if fig == 'circulo':
-            cx, cy, raio = values
-            canvas.create_oval(cx-raio, cy-raio, cx+raio, cy+raio, dash=(4, 2), fill=cor_preench)
+    def atualizar(self, x, y):
+        raioX = abs(self.values[0] - x)
+        raioY = abs(self.values[1] - y)
+        self.values =  (self.values[0], self.values[1], raioX, raioY)     # Calcula dois raios, horizontal e vertical
 
-    def incompleta(self, figura):
-        fig, values = figura
-        if fig == 'oval':
-            return values[2] == 0 or values[3] == 0
+
+    def incompleta(self):
+        return self.values[2] == 0 or self.values[3] == 0
 
 #####################################################################################################################################################
 
