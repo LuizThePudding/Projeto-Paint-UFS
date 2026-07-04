@@ -1,10 +1,10 @@
-from figura_linha import FiguraLinha
-from figura_retangulo import FiguraRetangulo
-from figura_rabisco import FiguraRabisco
-from figura_circulo import FiguraCirculo
-from figura_oval import FiguraOval
+from Model.figura_linha import FiguraLinha
+from Model.figura_retangulo import FiguraRetangulo
+from Model.figura_rabisco import FiguraRabisco
+from Model.figura_circulo import FiguraCirculo
+from Model.figura_oval import FiguraOval
 from seletor_cor import SeletorCor
-from figura import Figura
+from Model.figura import Figura
 
 
 class Quadro:

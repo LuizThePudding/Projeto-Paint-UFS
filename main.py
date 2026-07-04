@@ -1,6 +1,6 @@
 from tkinter import Tk, Frame, Canvas, W
 
-from figura import Figura
+from view.figura import Figura
 from menu import Menu
 from quadro import Quadro
 from seletor_cor import SeletorCor
