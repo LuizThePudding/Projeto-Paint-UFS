@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
-#from figura_circulo import FiguraCirculo
-#from figura_oval import FiguraOval
-#from figura_linha import FiguraLinha
-#from figura_rabisco import FiguraRabisco
-#from figura_retangulo import FiguraRetangulo
+
 
 
 @dataclass

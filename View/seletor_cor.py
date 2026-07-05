@@ -1,3 +1,7 @@
+#from tkinter import colorchooser
+
+#color = colorchooser.askcolor
+
 class SeletorCor:
 
 
@@ -13,3 +17,7 @@ class SeletorCor:
    @staticmethod
    def converter(nome):
        return SeletorCor._CORES.get(nome, "black")
+
+
+
+

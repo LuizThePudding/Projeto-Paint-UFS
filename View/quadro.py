@@ -1,10 +1,5 @@
-from figura_linha import FiguraLinha
-from figura_retangulo import FiguraRetangulo
-from figura_rabisco import FiguraRabisco
-from figura_circulo import FiguraCirculo
-from figura_oval import FiguraOval
-from seletor_cor import SeletorCor
-from figura import Figura
+from View.seletor_cor import SeletorCor
+from Model import * 
 
 
 class Quadro:
@@ -68,4 +63,4 @@ class Quadro:
             fig.desenhar(self.canvas)
 
         if self.figura_atual is not None:
-            self.figura_atual.desenhar(self.canvas, tracejado=True)
+            self.figura_atual.desenhar(self.canvas)#, tracejado=True)

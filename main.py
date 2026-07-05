@@ -1,9 +1,9 @@
 from tkinter import Tk, Frame, Canvas, W
 
-from figura import Figura
-from menu import Menu
-from quadro import Quadro
-from seletor_cor import SeletorCor
+from Model import *
+from View.menu import Menu
+from View.quadro import Quadro
+from View.seletor_cor import SeletorCor
 
 
 #******* MAIN *******#

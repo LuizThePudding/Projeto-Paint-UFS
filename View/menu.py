@@ -25,7 +25,7 @@ class Menu:
 
         option_menu = ttk.OptionMenu(self.frame, self.tipo_figura_var,
                                       'Linha', 'Linha', 'Rabisco', 'Circulo', 'Oval', 'Retangulo')
-        option_menu.grid(column=1, row=0, sticky=W, **paddings)
+        option_menu.grid(column=1, row=0, columnspan=2, sticky=W, **paddings)
 
         option_menu_cor = ttk.OptionMenu(self.frame, self.tipo_cor_var,
                                           'Preto', 'Preto', 'Azul', 'Verde', 'Vermelho')

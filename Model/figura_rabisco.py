@@ -1,4 +1,4 @@
-from figura import Figura
+from Model.figura import Figura
 
 
 class FiguraRabisco(Figura):
