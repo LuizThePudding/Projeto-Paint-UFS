@@ -42,14 +42,7 @@ class Desenho:
                 self.figura_atual.atualizar(event.x, event.y)
                 self.redesenhar()
 
-"""     def redesenhar(self):
-            self.canvas.delete('all')
 
-            for fig in self.figuras:
-                fig.desenhar(self.canvas)
-
-            if self.figura_atual is not None:
-                self.figura_atual.desenhar(self.canvas) """
 
 """     def incluir_figura(self, event):
             if self.figura_atual is not None:
