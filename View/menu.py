@@ -34,3 +34,4 @@ class Menu:
         option_menu_preenchimento = ttk.OptionMenu(self.frame, self.tipo_preenchimento_var,
                                                      'Transparente', 'Transparente', 'Preto', 'Azul', 'Verde', 'Vermelho')
         option_menu_preenchimento.grid(column=5, row=0, sticky=W, **paddings)
+
