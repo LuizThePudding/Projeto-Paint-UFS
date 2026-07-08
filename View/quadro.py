@@ -6,7 +6,7 @@ from View.menu import Menu
 
 
 class Quadro:
-    def __init__(self, root, tipo_preenchimento_var, tipo_cor_var, tipo_figura_var):      # Guarda o canvas que veio lá de fora
+    def __init__(self, root,):      # Guarda o canvas que veio lá de fora
         self.root = root
         self.frame_canvas = Frame(root)
         self.frame_canvas.pack(fill="both", expand=True)
@@ -20,6 +20,4 @@ class Quadro:
         self.frame_canvas.grid_rowconfigure(0, weight=1)
         self.frame_canvas.grid_columnconfigure(0, weight=1)
 
-        self.tipo_preenchimento_var = tipo_preenchimento_var
-        self.tipo_cor_var = tipo_cor_var
-        self.tipo_figura_var = tipo_figura_var
+       

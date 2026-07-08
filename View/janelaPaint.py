@@ -31,6 +31,10 @@ class JanelaPaint():
         elif tipo == 'oval':
             cx, cy, raioX, raioY = coords
             self.canvas.create_oval(cx - raioX, cy - raioY, cx + raioX, cy + raioY, fill=cor_preench, outline=cor_bord)
+        
+        elif tipo == 'Borracha':
+            self.canvas.create_line(self.values, fill="white", width=10, capstyle="round", joinstyle="round")
+    
     
     def redesenhar(self):
         self.canvas.delete('all')

@@ -1,49 +1,31 @@
 from View.seletor_cor import SeletorCor
 from Model.figura import Figura
-from Model.figura_linha import FiguraLinha
-from Model.figura_circulo import FiguraCirculo
-from Model.figura_retangulo import FiguraRetangulo
-from Model.figura_oval import FiguraOval
-from Model.figura_rabisco import FiguraRabisco
-
-
-
-
-
+from Model.figura import Figura
+from View.janelaPaint import JanelaPaint
+from View.menu import Menu
 class Desenho:
 
-    def __init__(self, canvas, tipo_cor_var, tipo_preenchimento_var, tipo_figura_var):
+    def __init__(self, canvas, Janela_paint, menu):
         self.canvas = canvas
         self.figura_atual = None
-        self.tipo_cor_var = tipo_cor_var
-        self.tipo_preenchimento_var = tipo_preenchimento_var
-        self.tipo_figura_var = tipo_figura_var
+        self.menu = menu
+        self.janela_paint = Janela_paint
+        self.figuras = []
+       
+
 
     def iniciar_figura(self, event):
         # Pega a cor da borda e converte usando o SeletorCor
-        cor_b = SeletorCor.converter(self.tipo_cor_var.get())
+        cor_b = self.menu.cor_bord_atual
 
-        # Se for transparente deixa vazio, senão converte a cor
-        if self.tipo_preenchimento_var.get() == 'Transparente':
-            cor_p = ""
-        else:
-            cor_p = SeletorCor.converter(self.tipo_preenchimento_var.get())
-
+        cor_p = self.menu.cor_preench_atual
+      
         # Pega o tipo da forma selecionada
         tipo = self.tipo_figura_var.get()
 
-        # Cria o objeto certo dependendo do que está selecionado no menu
-        if tipo == 'Linha':
-            self.figura_atual = FiguraLinha('linha', [event.x, event.y, event.x, event.y], cor_b, cor_p)
-        elif tipo == 'Retangulo':
-            self.figura_atual = FiguraRetangulo('retangulo', [event.x, event.y, event.x, event.y], cor_b, cor_p)
-        elif tipo == 'Rabisco':
-            self.figura_atual = FiguraRabisco('rabisco', [(event.x, event.y)], cor_b, cor_p)
-        elif tipo == 'Circulo':
-            self.figura_atual = FiguraCirculo('circulo', [event.x, event.y, 0], cor_b, cor_p)
-        else:
-            self.figura_atual = FiguraOval('oval', [event.x, event.y, 0, 0], cor_b, cor_p)
+        self.figura_atual = Figura.criar(tipo,event.x, event.y, cor_b, cor_p)
 
+        self.menu_redesenhar()
 
     def atualizar_figura(self, event):
             if self.figura_atual is not None:

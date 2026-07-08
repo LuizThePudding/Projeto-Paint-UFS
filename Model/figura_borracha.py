@@ -1,10 +1,9 @@
 from Model.figura import Figura
 
 
-class Borracha(Figura):
+class FiguraBorracha(Figura):
     def desenhar(self, canvas, tracejado=False):
-        pontos = [valor for ponto in self.values for valor in ponto]
-        canvas.create_line(*pontos, fill="white", width=10, capstyle="round", joinstyle="round")
+      canvas.create_line(self.values, fill="white", width=10, capstyle="round", joinstyle="round")
 
     def atualizar(self, x, y):
         self.values.append((x, y))
