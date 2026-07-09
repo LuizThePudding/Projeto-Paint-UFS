@@ -22,7 +22,6 @@ class Figura(ABC):
     def incompleta(self):
         pass
 
-    @abstractmethod
     def criar(cls, tipo, x, y, cor_bord, cor_preench):
         from Model.figura_linha import FiguraLinha
         from Model.figura_circulo import FiguraCirculo
