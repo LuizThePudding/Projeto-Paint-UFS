@@ -30,6 +30,7 @@ class Figura(ABC):
         from Model.figura_oval import FiguraOval
         from Model.figura_rabisco import FiguraRabisco
         from Model.figura_borracha import FiguraBorracha
+        from Model.figura_quadrado import FiguraQuadrado
 
         if tipo == "Linha":
             return FiguraLinha("linha", [x, y, x, y], cor_bord, cor_preench)
@@ -39,6 +40,8 @@ class Figura(ABC):
             return FiguraRetangulo("retangulo", [x, y, x, y], cor_bord, cor_preench)
         elif tipo == "Oval":
             return FiguraOval("oval", [x, y, 0, 0], cor_bord, cor_preench)
+        elif tipo == "Quadrado":
+            return FiguraQuadrado("quadrado", [x, y, x, y], cor_bord, cor_preench)
         elif tipo == "Borracha":
             return FiguraBorracha("borracha", [[x, y]], "", "")
         else:  # Rabisco

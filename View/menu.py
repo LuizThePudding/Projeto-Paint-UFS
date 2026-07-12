@@ -15,7 +15,7 @@ class Menu:
         paddings = {'padx': 5, 'pady': 5}
 
         option_menu = ttk.OptionMenu(self.frame, self.tipo_figura_var,
-                                      'Linha', 'Linha', 'Rabisco', 'Circulo', 'Oval', 'Retangulo', 'Borracha')
+                                      'Linha', 'Linha', 'Rabisco', 'Circulo', 'Oval', 'Retangulo', 'Quadrado', 'Borracha')
         option_menu.grid(column=1, row=0, sticky=W, **paddings)
 
 
