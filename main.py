@@ -5,7 +5,7 @@ from View.quadro import Quadro
 from View.janelaPaint import JanelaPaint
 from Model.Desenho import Desenho
 from Controller.controlador_paint import ControladorPaint
-
+from Controller.arquivos import Arquivos
 
 #******* MAIN *******#
 
@@ -17,4 +17,5 @@ quadro = Quadro(root)
 janela_paint = JanelaPaint(quadro.canvas)
 desenho = Desenho(janela_paint)
 controlador = ControladorPaint(desenho, menu)
+arquivos = Arquivos(desenho)
 root.mainloop()
