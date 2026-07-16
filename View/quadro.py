@@ -1,8 +1,6 @@
-from View.seletor_cor import SeletorCor
 from tkinter import Tk, Frame, Canvas, W
 from Model import * 
 from View.menu import Menu
-#from Controller.Desenhar import Desenho
 
 
 class Quadro:
