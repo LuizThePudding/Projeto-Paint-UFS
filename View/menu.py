@@ -34,6 +34,17 @@ class Menu:
         self.botao_sem_preench = ttk.Button(self.frame, text="□ Sem Preench.", command=self._sem_preench)
         self.botao_sem_preench.grid(column=5, row=2, sticky=W, **paddings)
 
+        self.botao_copiar = ttk.Button(self.frame, text="⧉ Copiar", command=self._copiar)
+        self.botao_copiar.grid(column=6, row=2, sticky=W, **paddings)
+
+        self.botao_colar = ttk.Button(self.frame, text="⎘ Colar", command=self._colar)
+        self.botao_colar.grid(column=7, row=2, sticky=W, **paddings)
+
+        self.botao_cor_bord_sel = ttk.Button(self.frame, text="◐ Borda Selec.", command=self._mudar_cor_bord_selecionada)
+        self.botao_cor_bord_sel.grid(column=8, row=2, sticky=W, **paddings)
+
+        self.botao_cor_preench_sel = ttk.Button(self.frame, text="■ Preench. Selec.", command=self._mudar_cor_preench_selecionada)
+        self.botao_cor_preench_sel.grid(column=9, row=2, sticky=W, **paddings)
 
     def _escolher_borda(self):
             self.cor_bord_atual = SeletorCor.escolher_cor("Cor da Borda")
@@ -61,3 +72,17 @@ class Menu:
 
         elif opcao == 'Fechar':
              self.root.destroy()
+    
+    def _copiar(self):
+         self.controlador_selecao.copiar_selecionada()
+
+    def _colar(self):
+         self.controlador_selecao.colar()
+
+    def _mudar_cor_bord_selecionada(self):
+        cor = SeletorCor.escolher_cor("Cor da Borda da figura selecionada")
+        self.controlador_selecao.mudar_cor_bord_selecionada(cor)
+
+    def _mudar_cor_preench_selecionada(self):
+        cor = SeletorCor.escolher_cor("Cor de Preench. da figura selecionada")
+        self.controlador_selecao.mudar_cor_preench_selecionada(cor)

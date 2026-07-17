@@ -1,8 +1,11 @@
+import copy
+
 class Desenho:
     def __init__(self, janela_paint):
         self.figuras = []
         self.janela_paint = janela_paint
         self.selecionada_idx = -1
+        self.figura_copiada = None
 
     def adiciona_figura(self, figura):
         self.figuras.append(figura)
@@ -37,6 +40,11 @@ class Desenho:
         if self.selecionada_idx != -1:
             self.figuras.pop(self.selecionada_idx)
             self.selecionada_idx = -1
+        
+    def copia_selecionada(self):
+        figura = self.selecionada()
+        if figura is not None:
+            self.figura_copiada = copy.deepcopy(figura)
 
 
     #Ordem de empilhamento (z-order
@@ -73,3 +81,22 @@ class Desenho:
         figura = self.figuras.pop(i)
         self.figuras.insert(0, figura)
         self.selecionada_idx = 0
+    
+    def cola(self, deslocamento = 20):
+        if self.figura_copiada is None:
+            return
+        nova_figura = copy.deepcopy(self.figura_copiada)
+        nova_figura.mover(deslocamento, deslocamento)
+        self.figuras.append(nova_figura)
+        self.selecionada_idx = len(self.figuras) - 1
+        self.figura_copiada = nova_figura
+
+    def muda_cor_bord_selecionada(self, cor):
+        figura = self.selecionada()
+        if figura is not None:
+            figura.cor_bord = cor
+
+    def muda_cor_preench_selecionada(self, cor):
+        figura = self.selecionada()
+        if figura is not None:
+            figura.cor_preench = cor

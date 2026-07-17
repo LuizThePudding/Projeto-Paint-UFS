@@ -18,6 +18,7 @@ janela_paint = JanelaPaint(quadro.canvas)
 desenho = Desenho(janela_paint)
 controlador = ControladorPaint(desenho, menu)
 arquivos = Arquivos(desenho)
+menu.controlador_selecao = controlador.controlador_selecao
 menu.montar()
 menu.arquivos = arquivos
 

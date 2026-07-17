@@ -13,6 +13,10 @@ class ControladorSelecao:
         root.bind("<Left>", self.mover_para_tras)
         root.bind("<Up>", self.mover_para_topo)
         root.bind("<Down>", self.mover_para_fundo)
+        root.bind("<Control-c>", self.copiar_selecionada)
+        root.bind("<Control-C>", self.copiar_selecionada)
+        root.bind("<Control-v>", self.colar)
+        root.bind("<Control-V>", self.colar)
 
     def _atualiza_tela(self):
         self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
@@ -35,4 +39,19 @@ class ControladorSelecao:
 
     def mover_para_fundo(self, event):
         self.desenho.move_para_fundo()
+        self._atualiza_tela()
+
+    def copiar_selecionada(self, event=None):
+        self.desenho.copia_selecionada()
+
+    def colar(self, event=None):
+        self.desenho.cola()
+        self._atualiza_tela
+    
+    def mudar_cor_bord_selecionada(self, cor):
+        self.desenho.muda_cor_bord_selecionada(cor)
+        self._atualiza_tela()
+
+    def mudar_cor_preench_selecionada(self, cor):
+        self.desenho.muda_cor_preench_selecionada(cor)
         self._atualiza_tela()
