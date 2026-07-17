@@ -12,10 +12,10 @@ class BorrachaFerramenta(Ferramenta):
 
     def mouse_arrastado(self, event):
         self.borracha_atual.atualizar(event.x, event.y)
-        self.desenho.desenha_figuras()
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
         self.desenho.janela_paint.desenhar(self.borracha_atual)
 
     def mouse_solto(self, event):
         if not self.borracha_atual.incompleta():
             self.desenho.adiciona_figura(self.borracha_atual)
-        self.desenho.desenha_figuras()
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())

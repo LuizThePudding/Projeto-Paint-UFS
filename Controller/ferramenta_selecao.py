@@ -12,7 +12,7 @@ class SelecaoFerramenta(Ferramenta):
         self.ult_y = event.y
         self.desenho.limpa_selecao()
         self.desenho.seleciona(event.x, event.y)
-        self.desenho.desenha_figuras()
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
         self.desenho.janela_paint.canvas.focus_set()  
 
     def mouse_arrastado(self, event):
@@ -21,7 +21,7 @@ class SelecaoFerramenta(Ferramenta):
             fig_sel.mover(event.x - self.ult_x, event.y - self.ult_y)
             self.ult_x = event.x
             self.ult_y = event.y
-            self.desenho.desenha_figuras()
+            self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
 
     def mouse_solto(self, event):
         pass

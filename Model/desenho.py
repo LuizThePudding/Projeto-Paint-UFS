@@ -13,14 +13,6 @@ class Desenho:
     def reestruturar_figura(self, figuras_novas):
         self.figuras = figuras_novas
 
-    def desenha_figuras(self):
-        self.janela_paint.limpar()
-        for figura in self.figuras:
-            self.janela_paint.desenhar(figura)
-
-    def redesenhar(self):
-        self.desenha_figuras()
-
      # ---- Seleção ----
 
     def limpa_selecao(self):
@@ -37,6 +29,9 @@ class Desenho:
             return self.figuras[self.selecionada_idx]
         else:
             return None
+
+    def obtem_indice_selecionado(self):
+        return self.selecionada_idx
 
     def apaga_selecionada(self):
         if self.selecionada_idx != -1:

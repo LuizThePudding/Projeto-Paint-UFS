@@ -13,10 +13,10 @@ class QuadradoFerramenta(Ferramenta):
 
     def mouse_arrastado(self, event):
         self.quadrado_novo.atualizar(event.x, event.y)
-        self.desenho.desenha_figuras()
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
         self.desenho.janela_paint.desenhar(self.quadrado_novo)
 
     def mouse_solto(self, event):
         if not self.quadrado_novo.incompleta():
             self.desenho.adiciona_figura(self.quadrado_novo)
-        self.desenho.desenha_figuras()
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
