@@ -17,3 +17,7 @@ class FiguraCirculo(Figura):
     def mover(self, dx, dy):
         cx, cy, raio = self.values
         self.values = (cx + dx, cy + dy, raio)
+
+    def obter_caixa(self):
+        cx, cy, raio = self.values
+        return (cx - raio, cy - raio, cx + raio, cy + raio)

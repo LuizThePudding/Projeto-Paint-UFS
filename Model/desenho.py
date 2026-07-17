@@ -2,7 +2,7 @@ class Desenho:
     def __init__(self, janela_paint):
         self.figuras = []
         self.janela_paint = janela_paint
-        self.selecionada_idx = -1
+        self.selecionadas_idx = set()
 
     def adiciona_figura(self, figura):
         self.figuras.append(figura)
@@ -16,24 +16,35 @@ class Desenho:
      # ---- Seleção ----
 
     def limpa_selecao(self):
-        self.selecionada_idx = -1
+        self.selecionadas_idx = set()
 
-    def seleciona(self, px, py):
+    def indice_no_ponto(self, px, py):
         i = len(self.figuras) - 1
         while i >= 0 and not self.figuras[i].contem(px, py):
             i -= 1
-        self.selecionada_idx = i
+        return i
 
-    def selecionada(self):
-        if self.selecionada_idx >= 0:
-            return self.figuras[self.selecionada_idx]
+    def selecionadas(self):
+        if self.selecionadas_idx != set():
+            return [self.figuras[i] for i in self.selecionadas_idx]
         else:
-            return None
+            return []
 
-    def obtem_indice_selecionado(self):
-        return self.selecionada_idx
+    def obtem_indice_selecionados(self):
+        return self.selecionadas_idx
 
-    def apaga_selecionada(self):
-        if self.selecionada_idx != -1:
-            self.figuras.pop(self.selecionada_idx)
-            self.selecionada_idx = -1
+    def apaga_selecionadas(self):
+        if self.selecionadas_idx != set():
+            for i in sorted(self.selecionadas_idx, reverse=True):
+                self.figuras.pop(i)
+            self.selecionadas_idx = set()
+
+    def seleciona_area(self, x1, y1, x2, y2):
+        self.selecionadas_idx = set()
+        for i, figura in enumerate(self.figuras):
+            cx1, cy1, cx2, cy2 = figura.obter_caixa()
+            if not (cx2 < x1 or cx1 > x2 or cy2 < y1 or cy1 > y2):
+                self.selecionadas_idx.add(i)
+
+    def esta_selecionada(self, i):
+        return i in self.selecionadas_idx

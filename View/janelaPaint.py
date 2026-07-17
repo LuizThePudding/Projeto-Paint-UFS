@@ -73,17 +73,25 @@ class JanelaPaint():
                 fill=cor_selecao, outline="white"
             )
 
-    def desenha_figuras(self, figuras, selecionada_idx=-1):
+    def desenha_figuras(self, figuras, selecionadas_idx=set()):
         self.limpar()
         for i, figura in enumerate(figuras):
             item_id = self.desenhar(figura)
-            if i == selecionada_idx:
+            if i in selecionadas_idx:
                 self.desenha_selecao(item_id)
 
-    def redesenhar(self, figuras, selecionada_idx=-1):
-        self.desenha_figuras(figuras, selecionada_idx)
+    def redesenhar(self, figuras, selecionadas_idx=set()):
+        self.desenha_figuras(figuras, selecionadas_idx)
 
     def ativar_mouse(self, pressionado, arrastado, solto):
         self.canvas.bind("<ButtonPress-1>", pressionado)
         self.canvas.bind("<B1-Motion>", arrastado)
         self.canvas.bind("<ButtonRelease-1>", solto)
+
+    def desenha_retangulo_selecao(self, x1, y1, x2, y2):
+        self.canvas.create_rectangle(
+            x1, y1, x2, y2,
+            outline="gray",
+            dash=(4, 2),
+            fill=""
+        )

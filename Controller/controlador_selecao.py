@@ -12,4 +12,4 @@ class ControladorSelecao:
 
     def apagar_selecionada(self, event):
         self.desenho.apaga_selecionada()
-        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionados())

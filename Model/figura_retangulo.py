@@ -18,3 +18,7 @@ class FiguraRetangulo(Figura):
     def mover(self, dx, dy):
         x1, y1, x2, y2 = self.values
         self.values = (x1 + dx, y1 + dy, x2 + dx, y2 + dy)
+
+    def obter_caixa(self, x1, y1, x2, y2):
+        x1, y1, x2, y2 = self.values
+        return (min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2))

@@ -13,10 +13,10 @@ class RetanguloFerramenta(Ferramenta):
 
     def mouse_arrastado(self, event):
         self.retangulo_novo.atualizar(event.x, event.y)
-        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionados())
         self.desenho.janela_paint.desenhar(self.retangulo_novo)
 
     def mouse_solto(self, event):
         if not self.retangulo_novo.incompleta():
             self.desenho.adiciona_figura(self.retangulo_novo)
-        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
+        self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionados())

@@ -21,3 +21,7 @@ class FiguraOval(Figura):
     def mover(self, dx, dy):
         cx, cy, raioX, raioY = self.values
         self.values = (cx + dx, cy + dy, raioX, raioY)
+
+    def obter_caixa(self):
+        cx, cy, raioX, raioY = self.values
+        return (cx - raioX, cy - raioY, cx + raioX, cy + raioY)

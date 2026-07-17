@@ -19,3 +19,8 @@ class FiguraRabisco(Figura):
     
     def mover(self, dx, dy):
         self.values = [(x + dx, y + dy) for (x, y) in self.values]
+
+    def obter_caixa(self):
+        valorx = [p[0] for p in self.values]
+        valory = [o[1] for o in self.values]
+        return (min(valorx), min(valory), max(valorx), max(valory))

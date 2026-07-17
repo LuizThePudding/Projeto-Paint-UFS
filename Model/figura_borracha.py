@@ -22,3 +22,8 @@ class FiguraBorracha(Figura):
             if self.distancia_ponto_segmento(x1, y1, x2, y2, x, y) <= epsilon:
                 return True
         return False
+    
+    def obter_caixa(self):
+        valorx = [p[0] for p in self.values]
+        valory = [o[1] for o in self.values]
+        return (min(valorx), min(valory), max(valorx), max(valory))
