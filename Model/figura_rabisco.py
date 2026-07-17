@@ -19,3 +19,9 @@ class FiguraRabisco(Figura):
     
     def mover(self, dx, dy):
         self.values = [(x + dx, y + dy) for (x, y) in self.values]
+
+    def escalar(self, fator):
+        n = len(self.values)
+        cx = sum(p[0] for p in self.values) / n
+        cy = sum(p[1] for p in self.values) / n
+        self.values = [(cx + (x - cx) * fator, cy + (y - cy) * fator) for x, y in self.values]

@@ -21,3 +21,7 @@ class FiguraOval(Figura):
     def mover(self, dx, dy):
         cx, cy, raioX, raioY = self.values
         self.values = (cx + dx, cy + dy, raioX, raioY)
+
+    def escalar(self, fator):
+        cx, cy, raioX, raioY = self.values
+        self.values = (cx, cy, raioX * fator, raioY * fator)

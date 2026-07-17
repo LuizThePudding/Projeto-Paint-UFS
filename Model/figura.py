@@ -66,3 +66,7 @@ class Figura(ABC):
         ponto_x = x1 + t * dx
         ponto_y = y1 + t * dy
         return ((px - ponto_x) ** 2 + (py - ponto_y) ** 2) ** 0.5
+    
+    @abstractmethod
+    def escalar(self,fator):
+        pass

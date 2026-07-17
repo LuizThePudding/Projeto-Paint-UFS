@@ -22,3 +22,9 @@ class FiguraBorracha(Figura):
             if self.distancia_ponto_segmento(x1, y1, x2, y2, x, y) <= epsilon:
                 return True
         return False
+    
+    def escalar(self, fator):
+        n = len(self.values)
+        cx = sum(p[0] for p in self.values) / n
+        cy = sum(p[1] for p in self.values) / n
+        self.values = [(cx + (x - cx) * fator, cy + (y - cy) * fator) for x, y in self.values]

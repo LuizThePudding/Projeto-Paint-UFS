@@ -100,3 +100,8 @@ class Desenho:
         figura = self.selecionada()
         if figura is not None:
             figura.cor_preench = cor
+
+    def escala_selecionada(self, fator):
+        figura = self.selecionada()
+        if figura is not None:
+            figura.escalar(fator)

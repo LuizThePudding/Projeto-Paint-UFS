@@ -17,6 +17,10 @@ class ControladorSelecao:
         root.bind("<Control-C>", self.copiar_selecionada)
         root.bind("<Control-v>", self.colar)
         root.bind("<Control-V>", self.colar)
+        root.bind("<plus>", self.ampliar_selecionada)
+        root.bind("<equal>", self.ampliar_selecionada)   # "+" sem Shift no teclado
+        root.bind("<minus>", self.diminuir_selecionada)
+
 
     def _atualiza_tela(self):
         self.desenho.janela_paint.desenha_figuras(self.desenho.obter_figuras(), self.desenho.obtem_indice_selecionado())
@@ -54,4 +58,12 @@ class ControladorSelecao:
 
     def mudar_cor_preench_selecionada(self, cor):
         self.desenho.muda_cor_preench_selecionada(cor)
+        self._atualiza_tela()
+
+    def ampliar_selecionada(self, event=None):
+        self.desenho.escala_selecionada(1.1)
+        self._atualiza_tela()
+
+    def diminuir_selecionada(self, event=None):
+        self.desenho.escala_selecionada(0.9)
         self._atualiza_tela()

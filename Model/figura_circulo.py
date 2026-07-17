@@ -17,3 +17,7 @@ class FiguraCirculo(Figura):
     def mover(self, dx, dy):
         cx, cy, raio = self.values
         self.values = (cx + dx, cy + dy, raio)
+
+    def escalar(self, fator):
+        cx, cy, raio = self.values
+        self.values = (cx, cy, raio * fator)

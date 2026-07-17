@@ -22,3 +22,12 @@ class FiguraQuadrado(Figura):
     def mover(self, dx, dy):
         x1, y1, x2, y2 = self.values
         self.values = (x1 + dx, y1 + dy, x2 + dx, y2 + dy)
+
+    def escalar(self, fator):
+        x1, y1, x2, y2 = self.values
+        cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+        x1 = cx + (x1 - cx) * fator
+        y1 = cy + (y1 - cy) * fator
+        x2 = cx + (x2 - cx) * fator
+        y2 = cy + (y2 - cy) * fator
+        self.values = (x1, y1, x2, y2)
